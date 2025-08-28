@@ -17,7 +17,8 @@ echo "Path" + $databasePath
 $conn = New-SQLiteConnection -DataSource $databasePath
 $conn
 
-# Define the query to extract the ProductTitle column
+# Define the query to extract the ProductTitle,ReleaseDate,GenresJson,ProductAsin,ProductSku columns
+# ProductAsin,ProductSku are used for de-duping and future edition disambiguation
 $query = "
 SELECT
   ProductTitle,
@@ -34,4 +35,5 @@ $results = Invoke-SqliteQuery -Query $query -SQLiteConnection $conn
 
 # Export the results to a CSV file
 $results | Export-Csv -Path "C:\Users\$env:USERNAME\Desktop\AmazonGames.csv" -NoTypeInformation -Encoding UTF8
+
 pause
